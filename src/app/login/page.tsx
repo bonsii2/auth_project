@@ -1,8 +1,10 @@
 'use client'
 import { supabase } from "@/lib/supabase"
-import { useState } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function Page() {
  
+  const router = useRouter();
   const [data, setData] = useState<{
     email: string,
     password: string
@@ -11,17 +13,28 @@ export default function Page() {
     password: ''
   })
 
-  const login = async () => {
+  const login = async (e: React.FormEvent) => {
+        e.preventDefault();
     try{
       
-let { data, error } = await supabase.auth.signUp({
-  email: "someone@email.com",
-  password: "LGahjoDEEbjAledaOval",
+
+let { data: userData, error } = await supabase.auth.signInWithPassword({
+  email: data.email,
+  password: data.password,
 });
 
 
-if(data){
-  console.log(data)
+
+
+if(userData){
+  console.log(userData)
+}
+if(data) console.log(data);
+if(error){
+  console.log('error ', error.message)
+}else{
+  console.log('login successfully ');
+  router.push('/')
 }
 }catch(error){
       console.log(error)
@@ -41,7 +54,7 @@ if(data){
       <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         Login
       </h1>
-      <form className="space-y-4">
+      <form onSubmit={login} className="space-y-4">
         <div>
           <label
             htmlFor="email"
@@ -55,7 +68,7 @@ if(data){
             name="email"
             value={data?.email}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
         <div>
