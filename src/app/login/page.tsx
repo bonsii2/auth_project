@@ -1,8 +1,87 @@
+'use client'
+import { supabase } from "@/lib/supabase"
+import { useState } from "react";
+export default function Page() {
+ 
+  const [data, setData] = useState<{
+    email: string,
+    password: string
+  }>({
+     email: '',
+    password: ''
+  })
 
-export default function page() {
-  return (
-    <div>login page</div>
-  )
+  const login = async () => {
+    try{
+      
+let { data, error } = await supabase.auth.signUp({
+  email: "someone@email.com",
+  password: "LGahjoDEEbjAledaOval",
+});
+
+
+if(data){
+  console.log(data)
 }
+}catch(error){
+      console.log(error)
+    }
+  }
 
+  const handleChange = (e: any) => {
+    const {name, value} = e.target;
+    setData((prev: any) =>({
+      ...prev,
+      [name] : value,
+    }))
+  }
+
+  return (
+    <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+      <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+        Login
+      </h1>
+      <form className="space-y-4">
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            name="email"
+            value={data?.email}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+            value={data?.password}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+        <button
+          onClick={login}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  );
+  }
 
