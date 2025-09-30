@@ -24,5 +24,5 @@ return res;
 };
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/profile/:path*'],
+  matcher: ['/dashboard/', '/profile/:path*'],
 };

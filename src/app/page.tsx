@@ -1,4 +1,4 @@
-import {supabase} from '@/lib/supabase'
+import {supabase} from '@/lib/supabaseCleint'
 import Image from "next/image";
 
 export default function Home() {

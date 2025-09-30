@@ -1,5 +1,5 @@
 'use client'
-import { supabase } from "@/lib/supabase"
+import { supabase } from "@/lib/supabaseCleint"
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -108,6 +108,7 @@ if(error){
           )}
         </button>
         <Link href={'/register'} className="text-black">register</Link>
+        <Link href={'/login/loginbyphone'}>signUP by phone</Link>
       </form>
     </div>
   );
