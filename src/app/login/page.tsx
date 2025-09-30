@@ -26,11 +26,8 @@ let { data: userData, error } = await supabase.auth.signInWithPassword({
   password: data.password,
 });
 
-
-
-
 if(userData){
-  console.log(userData)
+  router.refresh();
 }
 if(data) console.log(data);
 if(error){
